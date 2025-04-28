@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NullRedirect - Glitching the Matrix, Securing the Future</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: 'Orbitron', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 20px;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px;
+            background: #161b22;
+        }
+        nav a {
+            color: #58a6ff;
+            text-decoration: none;
+        }
+        .section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #161b22;
+            border-radius: 8px;
+        }
+        .dynamic-content {
+            font-size: 18px;
+            color: #58a6ff;
+        }
+    </style>
+    <script>
+        function fetchIP() {
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('user-ip').textContent = data.ip;
+                })
+                .catch(error => console.error('Error fetching IP:', error));
+        }
+        
+        function getUserAgentDetails() {
+            const userAgent = navigator.userAgent;
+            let os = "Unknown OS";
+            let browser = "Unknown Browser";
+
+            if (userAgent.indexOf("Win") !== -1) os = "Windows";
+            else if (userAgent.indexOf("Mac") !== -1) os = "MacOS";
+            else if (userAgent.indexOf("Linux") !== -1) os = "Linux";
+            else if (userAgent.indexOf("Android") !== -1) os = "Android";
+            else if (userAgent.indexOf("like Mac") !== -1) os = "iOS";
+
+            if (userAgent.indexOf("Chrome") !== -1) browser = "Google Chrome";
+            else if (userAgent.indexOf("Firefox") !== -1) browser = "Mozilla Firefox";
+            else if (userAgent.indexOf("Safari") !== -1 && userAgent.indexOf("Chrome") === -1) browser = "Safari";
+            else if (userAgent.indexOf("Edge") !== -1) browser = "Microsoft Edge";
+            else if (userAgent.indexOf("MSIE") !== -1 || userAgent.indexOf("Trident") !== -1) browser = "Internet Explorer";
+
+            document.getElementById("user-os").textContent = os;
+            document.getElementById("user-browser").textContent = browser;
+        }
+    </script>
+</head>
+<body onload="fetchIP(); getUserAgentDetails();">
+    <div class="header">NullRedirect - Not all redirects are bad, just the 302 ones.</div>
+    <nav>
+        <a href="#about">About Me</a>
+        <a href="#blogs">Blogs</a>
+        <a href="#tools">Tools</a>
+    </nav>
+    <div class="container">
+        <div class="section">
+            <h2>Welcome to NullRedirect</h2>
+            <p>Exploring security, automation, and the unknown.</p>
+            <p>Your IP: <span id="user-ip" class="dynamic-content">Fetching...</span></p>
+            <p>Your OS: <span id="user-os" class="dynamic-content">Detecting...</span></p>
+            <p>Your Browser: <span id="user-browser" class="dynamic-content">Detecting...</span></p>
+        </div>
+        <div id="about" class="section">
+            <h2>About Me</h2>
+            <p><strong>Himanshu Pise</strong></p>
+            <p>Cybersecurity Engineer | Cloud Enthusiast | Ethical Hacker</p>
+            <p>Seasoned cybersecurity engineer specializing in data protection and threat mitigation. Skilled in safeguarding cloud and on-premise environments, identifying vulnerabilities, and ensuring secure operations.</p>
+            <p><strong>Education:</strong></p>
+            <p>Masters in Applied Cybersecurity, University of New Brunswick (4.0 CGPA)</p>
+            <p>Bachelor of Engineering in Information Technology, Savitribai Phule Pune University</p>
+            <p><strong>Skills:</strong> Cybersecurity tools (Veracode, Wireshark, MySQL, NMAP), Security frameworks (OWASP Top 10, MITRE ATT&CK), Cloud Security (AWS, Azure Entra ID)</p>
+            <p><strong>Certifications:</strong> CEH, AWS SysOps (Ongoing), ISC2 CC, Google Cybersecurity, Microsoft Security Fundamentals</p>
+            <p><strong>Contact:</strong> <a href="mailto:himanshu.pise.mail@gmail.com">himanshu.pise.mail@gmail.com</a> | <a href="https://www.linkedin.com/in/himanshupise">LinkedIn</a> | <a href="https://github.com/hmanshu-p">GitHub</a></p>
+        </div>
+        <div id="blogs" class="section">
+            <h2>Blogs</h2>
+            <p>Placeholder for blog post previews.</p>
+        </div>
+        <div id="tools" class="section">
+            <h2>Tools</h2>
+            <p>Placeholder for cybersecurity tools & scripts.</p>
+        </div>
+    </div>
+</body>
+</html>
