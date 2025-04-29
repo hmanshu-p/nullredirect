@@ -1,119 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NullRedirect - Glitching the Matrix, Securing the Future</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-        
-        body {
-            background-color: #0d1117;
-            color: #c9d1d9;
-            font-family: 'Orbitron', sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-        }
-        .header {
-            font-size: 24px;
-            font-weight: bold;
-            padding: 20px;
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 10px;
-            background: #161b22;
-        }
-        nav a {
-            color: #58a6ff;
-            text-decoration: none;
-        }
-        .section {
-            margin-top: 20px;
-            padding: 20px;
-            background: #161b22;
-            border-radius: 8px;
-        }
-        .dynamic-content {
-            font-size: 18px;
-            color: #58a6ff;
-        }
-    </style>
-    <script>
-        function fetchIP() {
-            fetch('https://api.ipify.org?format=json')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('user-ip').textContent = data.ip;
-                })
-                .catch(error => console.error('Error fetching IP:', error));
-        }
-        
-        function getUserAgentDetails() {
-            const userAgent = navigator.userAgent;
-            let os = "Unknown OS";
-            let browser = "Unknown Browser";
-
-            if (userAgent.indexOf("Win") !== -1) os = "Windows";
-            else if (userAgent.indexOf("Mac") !== -1) os = "MacOS";
-            else if (userAgent.indexOf("Linux") !== -1) os = "Linux";
-            else if (userAgent.indexOf("Android") !== -1) os = "Android";
-            else if (userAgent.indexOf("like Mac") !== -1) os = "iOS";
-
-            if (userAgent.indexOf("Chrome") !== -1) browser = "Google Chrome";
-            else if (userAgent.indexOf("Firefox") !== -1) browser = "Mozilla Firefox";
-            else if (userAgent.indexOf("Safari") !== -1 && userAgent.indexOf("Chrome") === -1) browser = "Safari";
-            else if (userAgent.indexOf("Edge") !== -1) browser = "Microsoft Edge";
-            else if (userAgent.indexOf("MSIE") !== -1 || userAgent.indexOf("Trident") !== -1) browser = "Internet Explorer";
-
-            document.getElementById("user-os").textContent = os;
-            document.getElementById("user-browser").textContent = browser;
-        }
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NullRedirect by Himanshu </title>
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d1117;
+      --fg: #e6edf3;
+      --accent: #58a6ff;
+      --card: #161b22;
+      --hover: #1f2933;
+    }
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --fg: #1f2933;
+      --accent: #007acc;
+      --card: #f3f4f6;
+      --hover: #e5e7eb;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .container {
+      max-width: 860px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+    header {
+      text-align: center;
+      padding: 30px 0 10px;
+    }
+    header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin: 0;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px 0;
+      margin-bottom: 30px;
+      border-bottom: 1px solid var(--hover);
+    }
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .theme-toggle {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      background: var(--card);
+      color: var(--fg);
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    .about-flex {
+      display: flex;
+      flex-direction: row;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .bio {
+      flex: 2;
+      min-width: 280px;
+    }
+    .tracker {
+      flex: 1;
+      min-width: 240px;
+      background-color: var(--card);
+      padding: 16px;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    @media (max-width: 768px) {
+      .about-flex {
+        flex-direction: column;
+      }
+      .tracker {
+        margin-top: 20px;
+      }
+    }
+    .accordion {
+      background-color: var(--card);
+      color: var(--fg);
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      border-radius: 6px;
+    }
+    .accordion:hover {
+      background-color: var(--hover);
+    }
+    .panel {
+      padding: 0 18px;
+      background-color: var(--bg);
+      display: none;
+      overflow: hidden;
+      border-left: 2px solid var(--accent);
+      border-radius: 0 0 6px 6px;
+      margin-bottom: 12px;
+    }
+    .panel p {
+      margin: 12px 0;
+      font-size: 14px;
+    }
+    .blog-date {
+      font-size: 13px;
+      color: gray;
+      margin-bottom: 6px;
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 12px;
+      color: gray;
+      border-top: 1px solid var(--hover);
+    }
+  </style>
 </head>
-<body onload="fetchIP(); getUserAgentDetails();">
-    <div class="header">NullRedirect - Not all redirects are bad, just the 302 ones.</div>
-    <nav>
-        <a href="#about">About Me</a>
-        <a href="#blogs">Blogs</a>
-        <a href="#tools">Tools</a>
-    </nav>
-    <div class="container">
-        <div class="section">
-            <h2>Welcome to NullRedirect</h2>
-            <p>Exploring security, automation, and the unknown.</p>
-            <p>Your IP: <span id="user-ip" class="dynamic-content">Fetching...</span></p>
-            <p>Your OS: <span id="user-os" class="dynamic-content">Detecting...</span></p>
-            <p>Your Browser: <span id="user-browser" class="dynamic-content">Detecting...</span></p>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+  <header>
+    <h1>NullRedirect by Himanshu P</h1>
+  </header>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#blogs">Blogs</a>
+    <a href="#tools">Tools</a>
+  </nav>
+  <div class="container">
+    <section id="about">
+      <h2>About Me</h2>
+      <div class="about-flex">
+        <div class="bio">
+          <p>Cybersecurity & Compliance Analyst with a background in secure cloud systems, threat mitigation, and AI-driven automation. Passionate about building secure, scalable infrastructure and simplifying complex systems.</p>
+          <p><strong>Contact:</strong> 
+            <a href="mailto:himanshu.pise.mail@gmail.com">Email</a> | 
+            <a href="https://linkedin.com/in/himanshupise">LinkedIn</a> | 
+            <a href="https://github.com/hmanshu-p">GitHub</a>
+          </p>
         </div>
-        <div id="about" class="section">
-            <h2>About Me</h2>
-            <p><strong>Himanshu Pise</strong></p>
-            <p>Cybersecurity Engineer | Cloud Enthusiast | Ethical Hacker</p>
-            <p>Seasoned cybersecurity engineer specializing in data protection and threat mitigation. Skilled in safeguarding cloud and on-premise environments, identifying vulnerabilities, and ensuring secure operations.</p>
-            <p><strong>Education:</strong></p>
-            <p>Masters in Applied Cybersecurity, University of New Brunswick (4.0 CGPA)</p>
-            <p>Bachelor of Engineering in Information Technology, Savitribai Phule Pune University</p>
-            <p><strong>Skills:</strong> Cybersecurity tools (Veracode, Wireshark, MySQL, NMAP), Security frameworks (OWASP Top 10, MITRE ATT&CK), Cloud Security (AWS, Azure Entra ID)</p>
-            <p><strong>Certifications:</strong> CEH, AWS SysOps (Ongoing), ISC2 CC, Google Cybersecurity, Microsoft Security Fundamentals</p>
-            <p><strong>Contact:</strong> <a href="mailto:himanshu.pise.mail@gmail.com">himanshu.pise.mail@gmail.com</a> | <a href="https://www.linkedin.com/in/himanshupise">LinkedIn</a> | <a href="https://github.com/hmanshu-p">GitHub</a></p>
+        <div class="tracker">
+          <p><strong>Visitor Info:</strong></p>
+          <p>IP Address: <span id="user-ip">Loading...</span></p>
+          <p>Operating System: <span id="user-os">Detecting...</span></p>
+          <p>Browser: <span id="user-browser">Detecting...</span></p>
         </div>
-        <div id="blogs" class="section">
-            <h2>Blogs</h2>
-            <p>Placeholder for blog post previews.</p>
-        </div>
-        <div id="tools" class="section">
-            <h2>Tools</h2>
-            <p>Placeholder for cybersecurity tools & scripts.</p>
-        </div>
-    </div>
+      </div>
+    </section>
+
+    <section id="blogs">
+      <h2>Blogs</h2>
+
+      <button class="accordion">🔍 From Compliance to Clarity: My Time with Capital Markets Security</button>
+      <div class="panel">
+        <p class="blog-date">November 15, 2022</p>
+        <p>Back at FIS, I was knee-deep in hashing functions—specifically implementing AES-256 and SHA-256 in client-facing data systems. One bug in a DAG pipeline taught me more about data integrity than any textbook ever could. Airflow + Snowflake + real deadlines = intense learning.</p>
+      </div>
+
+      <button class="accordion">🤖 Can AI Be Tricked? Fake News Detection in the Wild</button>
+      <div class="panel">
+        <p class="blog-date">March 3, 2024</p>
+        <p>During my Master’s, I created <strong>fake_snooper</strong>, a Chrome extension using lightweight NLP models to flag fake news in real-time. It was fast, on-device, and surprisingly accurate. It even caught a few clickbait articles my friends shared—cue awkward silence.</p>
+      </div>
+
+      <button class="accordion">🛠️ Threat Hunting in OT Environments: It's Not Just Firewalls</button>
+      <div class="panel">
+        <p class="blog-date">August 12, 2023</p>
+        <p>Securing Operational Tech is like playing Jenga blindfolded. Every change risks downtime. At Shipscope, my role in automating server monitoring while keeping uptime at 99.9% was an eye-opener. Tools like Wireshark and iptables became my daily bread.</p>
+      </div>
+
+      <button class="accordion">📡 Securing Home Networks—The Best Buy Chronicles</button>
+      <div class="panel">
+        <p class="blog-date">January 22, 2024</p>
+        <p>As a Certified Apple Advisor at Best Buy, I had to break down security for regular customers. Teaching someone how to set up MFA on their iCloud account felt oddly satisfying—especially knowing that small wins like these build broader awareness.</p>
+      </div>
+
+      <button class="accordion">🧠 AI-Driven Security Threats: Too Smart to Handle?</button>
+      <div class="panel">
+        <p class="blog-date">May 10, 2022</p>
+        <p>AI isn’t just a defense mechanism—it’s a weapon. I’ve seen poorly trained anomaly detectors flag harmless data and let actual exploits slip. Model tuning is critical. I’ve used Python with custom feature sets to spot legitimate signals in the noise.</p>
+      </div>
+
+      <button class="accordion">🔐 OWASP ZAP vs BurpSuite: A Student's Dilemma</button>
+      <div class="panel">
+        <p class="blog-date">October 4, 2023</p>
+        <p>While tutoring students at UNB, I got asked, “Which is better—ZAP or Burp?” It depends. ZAP is great for beginners and scripting. Burp, though, is unbeatable for in-depth recon. Verdict: don’t choose—learn both.</p>
+      </div>
+
+      <button class="accordion">🌐 Secure by Design: Why We Need DevSecOps in Everything</button>
+      <div class="panel">
+        <p class="blog-date">February 29, 2024</p>
+        <p>When I integrated Veracode scans into CI/CD at FIS, vulnerabilities started disappearing faster than bugs appeared. Secure by design isn’t a luxury anymore—it's a must. Security isn't a feature. It's an expectation.</p>
+      </div>
+    </section>
+
+    <section id="tools">
+      <h2>Tools</h2>
+      <p>Wireshark, Veracode, Snowflake, Apache Airflow, iptables, OWASP ZAP, BurpSuite, Python, Shell</p>
+    </section>
+  </div>
+
+  <footer>&copy; 2025 Himanshu P — nullredirect.com</footer>
+
+  <script>
+    document.querySelectorAll(".accordion").forEach(el => {
+      el.addEventListener("click", function () {
+        this.classList.toggle("active");
+        const panel = this.nextElementSibling;
+        panel.style.display = panel.style.display === "block" ? "none" : "block";
+      });
+    });
+
+    function toggleTheme() {
+      const theme = document.body.getAttribute("data-theme") === "light" ? "dark" : "light";
+      document.body.setAttribute("data-theme", theme);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      fetch('https://api.ipify.org?format=json')
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('user-ip').textContent = data.ip;
+        })
+        .catch(() => {
+          document.getElementById('user-ip').textContent = "Unavailable";
+        });
+
+      const ua = navigator.userAgent;
+      let os = "Unknown", browser = "Unknown";
+
+      if (/Win/.test(ua)) os = "Windows";
+      else if (/Mac/.test(ua)) os = "MacOS";
+      else if (/Linux/.test(ua)) os = "Linux";
+      else if (/Android/.test(ua)) os = "Android";
+      else if (/like Mac/.test(ua)) os = "iOS";
+
+      if (/Chrome/.test(ua)) browser = "Chrome";
+      else if (/Firefox/.test(ua)) browser = "Firefox";
+      else if (/Safari/.test(ua) && !/Chrome/.test(ua)) browser = "Safari";
+      else if (/Edge/.test(ua)) browser = "Edge";
+      else if (/MSIE|Trident/.test(ua)) browser = "Internet Explorer";
+
+      document.getElementById('user-os').textContent = os;
+      document.getElementById('user-browser').textContent = browser;
+    });
+  </script>
 </body>
 </html>
